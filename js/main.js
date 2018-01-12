@@ -28,18 +28,20 @@ var cardsInPlay = [];
 var checkForMatch = function() {
   // Check to see if two cards have been played
   if (cardsInPlay.length == 2){
-  if (cardsInPlay[0] === cardsInPlay[1]){
-    alert("You found a match!");
-  } else {
-    alert("Sorry, try again");
+    if (cardsInPlay[0] === cardsInPlay[1]){
+      alert("You found a match!");
+    } else {
+      alert("Sorry, try again");
+    } 
+    cardsInPlay = [];
   }
-}
 };
  
+
 // Function for when user flips a card
 var flipCard = function() {
   // Get card that was just flipped and store it
-  var cardId = parseInt(this.getAttribute('data-id'),10);
+  var cardId = this.getAttribute('data-id');
   console.log("User flipped " + (cards[cardId].rank));
   // Display card face
   this.src = cards[cardId].cardImage;
@@ -55,16 +57,18 @@ var flipCard = function() {
 var createBoard = function() {
   // Loop through the cards array
   for (var i = 0; i < cards.length; i++) {
-    // Image element method for card display  
+    // Create Element method for card display 
     var cardElement = document.createElement('img');
-    // Attribute method to display back of card
+    // Set Attribute method to display back of card that was just clicked, which is stored in cardImage property of cards array
     cardElement.setAttribute('src', "images/back.png");
-    // Attribute method to be index of current element
+    // Set Attribute method again to set atrribute to be index of current element (data- stores data not tied to a style)
     cardElement.setAttribute('data-id', i);
-    // Event listener for when user clicks, a card flip function triggers
+    // Event Listener method for when user clicks, a card flip function triggers
     cardElement.addEventListener('click', flipCard);
+    // Append Child method to append the current cardElement to gameboard
     document.getElementById('game-board').appendChild(cardElement);
   }
 };
+
 // Function to create board
 createBoard();
